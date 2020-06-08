@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TheHeaderNavItem active render correctly 1`] = `
+<li
+  className="nav-item"
+>
+  <a
+    className="nav-link active"
+    href="/"
+  >
+    Home
+  </a>
+</li>
+`;
+
+exports[`TheHeaderNavItem normal render correctly 1`] = `
+<li
+  className="nav-item"
+>
+  <a
+    className="nav-link"
+    href="/"
+  >
+    Home
+  </a>
+</li>
+`;
