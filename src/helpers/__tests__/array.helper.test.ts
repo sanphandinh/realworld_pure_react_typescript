@@ -1,4 +1,4 @@
-import { flatten } from './array.helper';
+import { flatten } from '../array.helper';
 
 describe('flatten array work fine', () => {
   test('flatten with depth equal 1', () => {

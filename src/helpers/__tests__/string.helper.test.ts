@@ -1,4 +1,4 @@
-import { isString } from './string.helper';
+import { isString } from '../string.helper';
 
 describe('isString function work fine', () => {
   test('The value is string type', () => {

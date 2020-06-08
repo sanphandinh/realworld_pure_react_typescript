@@ -1,4 +1,4 @@
-import classNames from './className.helper';
+import classNames from '../className.helper';
 
 test('list class (string) to be class valid', () => {
   expect(classNames('class1', 'class2', 'class3')).toBe('class1 class2 class3');

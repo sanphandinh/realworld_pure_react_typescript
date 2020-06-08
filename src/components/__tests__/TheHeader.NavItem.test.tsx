@@ -1,5 +1,5 @@
 import React from 'react';
-import TheHeaderNavItem from './TheHeader.NavItem';
+import TheHeaderNavItem from '../TheHeader.NavItem';
 import renderer from 'react-test-renderer';
 
 test('TheHeaderNavItem normal render correctly', () => {

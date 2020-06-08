@@ -1,5 +1,5 @@
 import React from 'react';
-import TheHeader from './TheHeader';
+import TheHeader from '../TheHeader';
 import renderer from 'react-test-renderer';
 
 test('The header render correctly', () => {
