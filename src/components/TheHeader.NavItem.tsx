@@ -1,18 +1,25 @@
 import React, { FC } from 'react';
 import classNames from '../helpers/className.helper';
+import { Link } from '@reach/router';
 
 type Props = {
-  active?: boolean;
   title: string | JSX.Element;
   url: string;
 };
 
-const TheHeaderNavItem: FC<Props> = ({ active = false, title, url }) => {
+const TheHeaderNavItem: FC<Props> = ({ title, url }) => {
   return (
     <li className="nav-item">
-      <a className={classNames('nav-link', { active: active })} href={url}>
+      <Link
+        to={url}
+        getProps={({ isCurrent }) => {
+          return {
+            className: classNames('nav-link', { active: isCurrent }),
+          };
+        }}
+      >
         {title}
-      </a>
+      </Link>
     </li>
   );
 };
