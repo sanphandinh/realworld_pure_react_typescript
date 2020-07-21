@@ -10,13 +10,7 @@ const BaseUrl: string = process.env.REACT_APP_API_URL || '';
 
 async function requester<T>(
   endpoint: string,
-  {
-    method,
-    body,
-    headers: customHeaders,
-    token,
-    ...customConfig
-  }: {
+  requestConfig?: {
     method?: MethodTypes;
     body?: { [id: string]: any };
     headers?: { [id: string]: any };
@@ -24,6 +18,8 @@ async function requester<T>(
     [id: string]: any;
   }
 ): Promise<T> {
+  const { method, body, headers: customHeaders, token, ...customConfig } =
+    requestConfig || {};
   const headers: { [id: string]: any } = {};
   if (token) {
     headers['Authorization'] = `Token ${token}`;

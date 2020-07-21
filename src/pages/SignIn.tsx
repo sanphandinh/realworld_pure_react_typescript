@@ -19,7 +19,7 @@ const validateSchema = Yup.object({
 });
 
 const loginForm = ({ email, password }: { email: string; password: string }) =>
-  requester<IUser>('/users/login', {
+  requester<IUser>('users/login', {
     body: {
       user: {
         email,
