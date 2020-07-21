@@ -1,16 +1,9 @@
 import { AUTH_ACTION_TYPE } from './AuthProvider.constant';
-
-export interface IUserInfo {
-  email: string;
-  token: string;
-  username: string;
-  bio: string;
-  image: string | null;
-}
+import IUser from 'models/User';
 
 export interface IAuthState {
   isLogin: boolean;
-  user?: IUserInfo;
+  user?: IUser;
 }
 
 interface IAuthAction {
@@ -23,7 +16,7 @@ export interface IAuthReducer {
 }
 
 export interface ILoginFunc {
-  (user: IUserInfo): void;
+  (user: IUser): void;
 }
 
 export interface ILogoutFunc {
@@ -31,7 +24,7 @@ export interface ILogoutFunc {
 }
 
 export interface IUpdateUserInfoFunc {
-  (user: IUserInfo): void;
+  (user: IUser): void;
 }
 
 export interface IAuthFunction {
