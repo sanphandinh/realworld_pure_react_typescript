@@ -18,20 +18,24 @@ const BaseArticle: FC<IArticle> = ({
   favoritesCount,
   author,
 }) => {
+  const profileLink = fillParam2Url(ProfileRoute, {
+    username: author.username,
+  });
+  const updatedAtFormat = new Date(updatedAt).toDateString();
   return (
     <div className="article-preview">
       <div className="article-meta">
-        <Link to={fillParam2Url(ProfileRoute, { username: author.username })}>
+        <Link to={profileLink}>
           <img
             alt={`${author.username} avatar`}
             src={author.image || DefaultAvatar}
           />
         </Link>
         <div className="info">
-          <a href="/" className="author">
+          <Link to={profileLink} className="author">
             {author.username}
-          </a>
-          <span className="date">{updatedAt}</span>
+          </Link>
+          <span className="date">{updatedAtFormat}</span>
         </div>
         <button className="btn btn-outline-primary btn-sm pull-xs-right">
           <i className="ion-heart"></i> {favoritesCount}
