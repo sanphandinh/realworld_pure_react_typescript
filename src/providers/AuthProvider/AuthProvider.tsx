@@ -18,7 +18,7 @@ const authStorage: IUser = getItem(AUTH_STORAGE_ID);
 const INIT_STATE: IAuthState = authStorage?.token
   ? {
       isLogin: true,
-      ...authStorage,
+      user: { ...authStorage },
     }
   : AUTH_INIT_STATE;
 
@@ -34,7 +34,6 @@ AuthFunctionContext.displayName = 'AuthFunctionContext';
 
 const AuthProvider: FC<IAuthProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, INIT_STATE);
-
   const logout: ILogoutFunc = useCallback(() => {
     dispatch({ type: AUTH_ACTION_TYPE.auth_logout });
   }, []);

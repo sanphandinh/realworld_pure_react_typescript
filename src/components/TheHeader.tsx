@@ -7,11 +7,13 @@ import {
   SettingsRoute,
   SigninRoute,
   SignupRoute,
+  ProfileRoute,
 } from '../constants/routes.constants';
 import { Link } from '@reach/router';
+import { fillParam2Url } from 'helpers/route.helper';
 
 const TheHeader: FC = () => {
-  const { isLogin } = useAuthState();
+  const { isLogin, user } = useAuthState();
   return (
     <nav className="navbar navbar-light">
       <div className="container">
@@ -37,6 +39,12 @@ const TheHeader: FC = () => {
                   </>
                 }
                 url={SettingsRoute}
+              />
+              <TheHeaderNavItem
+                title={user?.username || ''}
+                url={fillParam2Url(ProfileRoute, {
+                  username: user?.username || '',
+                })}
               />
             </>
           ) : (
