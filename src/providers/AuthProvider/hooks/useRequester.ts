@@ -1,12 +1,13 @@
 import React from 'react';
-import requester from 'utils/requester';
+import requester, { RequestConfigType } from 'utils/requester';
 import useAuthState from './useAuthState';
 
-const useRequester = () => {
+const useRequester = <T>() => {
   const { user } = useAuthState();
   const token = user?.token;
   return React.useCallback(
-    (endpoint, config) => requester(endpoint, { ...config, token }),
+    (endpoint: string, config?: RequestConfigType) =>
+      requester<T>(endpoint, { ...config, token }),
     [token]
   );
 };

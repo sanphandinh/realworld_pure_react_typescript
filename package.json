@@ -16,6 +16,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-query": "^2.4.2",
+    "react-query-devtools": "^2.4.2",
     "react-scripts": "3.4.1",
     "react-test-renderer": "^16.13.1",
     "typescript": "~3.7.2",

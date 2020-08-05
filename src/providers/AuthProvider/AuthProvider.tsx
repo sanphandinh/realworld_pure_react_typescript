@@ -13,9 +13,9 @@ import { getItem } from 'utils/storage';
 import { AUTH_STORAGE_ID } from '../../constants/storages_key.constants';
 import IUser from 'models/User';
 
-const authStorage: { user: IUser } = getItem(AUTH_STORAGE_ID);
+const authStorage: IUser = getItem(AUTH_STORAGE_ID);
 
-const INIT_STATE: IAuthState = authStorage?.user?.token
+const INIT_STATE: IAuthState = authStorage?.token
   ? {
       isLogin: true,
       ...authStorage,

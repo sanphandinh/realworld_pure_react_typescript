@@ -19,7 +19,7 @@ const validateSchema = Yup.object({
 });
 
 const loginForm = ({ email, password }: { email: string; password: string }) =>
-  requester<IUser>('users/login', {
+  requester<{ user: IUser }>('users/login', {
     body: {
       user: {
         email,
@@ -31,8 +31,8 @@ const loginForm = ({ email, password }: { email: string; password: string }) =>
 const SignIn: FC<RouteComponentProps> = () => {
   const { login } = useAuthFunction();
   const [mutate, { error, status }] = useMutation(loginForm, {
-    onSuccess: (data: IUser) => {
-      login(data);
+    onSuccess: (data: { user: IUser }) => {
+      login(data.user);
     },
   });
   const {
@@ -119,8 +119,7 @@ const SignIn: FC<RouteComponentProps> = () => {
               <button
                 disabled={!dirty || isLoading}
                 type="submit"
-                className="btn btn-lg btn-primary pull-xs-right"
-              >
+                className="btn btn-lg btn-primary pull-xs-right">
                 Sign in
               </button>
             </form>

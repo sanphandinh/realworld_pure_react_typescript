@@ -1,3 +1,5 @@
+import { getQueryStringFromJSON } from 'helpers/route.helper';
+
 export enum MethodTypes {
   GET = 'GET',
   POST = 'POST',
@@ -6,17 +8,19 @@ export enum MethodTypes {
   DELETE = 'DELETE',
 }
 
+export type RequestConfigType = {
+  method?: MethodTypes;
+  body?: { [id: string]: any };
+  headers?: { [id: string]: any };
+  token?: string;
+  [id: string]: any;
+};
+
 const BaseUrl: string = process.env.REACT_APP_API_URL || '';
 
 async function requester<T>(
   endpoint: string,
-  requestConfig?: {
-    method?: MethodTypes;
-    body?: { [id: string]: any };
-    headers?: { [id: string]: any };
-    token?: string;
-    [id: string]: any;
-  }
+  requestConfig?: RequestConfigType
 ): Promise<T> {
   const { method, body, headers: customHeaders, token, ...customConfig } =
     requestConfig || {};
@@ -40,7 +44,7 @@ async function requester<T>(
     .fetch(`${BaseUrl}/${endpoint}`, config)
     .then(async (response) => {
       if (response.status === 401) {
-        // Handle for unauthenticate
+        // Handle for unauthenticated
         //implement logout here
 
         //Refresh page
@@ -53,5 +57,12 @@ async function requester<T>(
       } else return Promise.reject(data);
     });
 }
+
+export const makeQueryRequest = (
+  url: string,
+  queryObj: { [id: string]: any }
+) => {
+  return `${url}${getQueryStringFromJSON(queryObj)}`;
+};
 
 export default requester;

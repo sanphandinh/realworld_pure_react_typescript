@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useAuthState } from '../providers/AuthProvider/hooks';
-import { Redirect } from '@reach/router';
+import { useNavigate } from '@reach/router';
 import { HomeRoute } from '../constants/routes.constants';
 
 type Props = {
@@ -10,8 +10,9 @@ type Props = {
 
 const BaseUnauthenticated: FC<Props> = ({ component: C, ...other }) => {
   const { isLogin } = useAuthState();
+  const navigate = useNavigate();
   if (isLogin) {
-    return <Redirect to={HomeRoute} replace />;
+    navigate(HomeRoute, { replace: true });
   }
   return <C {...other} />;
 };

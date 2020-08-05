@@ -1,6 +1,6 @@
 import IUser from './User';
 
-interface Article {
+interface IArticle {
   slug: string;
   title: string;
   description: string;
@@ -13,4 +13,4 @@ interface Article {
   author: IUser;
 }
 
-export default Article;
+export default IArticle;
