@@ -20,17 +20,17 @@ const getJSONFromQueryUrl = (search: string): { [id: string]: any } => {
 };
 
 const getQueryStringFromJSON = (queryObj: { [id: string]: any }): string => {
-  let result = '';
+  const listKey = [];
   for (const key in queryObj) {
     if (Object.prototype.hasOwnProperty.call(queryObj, key)) {
       const element = queryObj[key];
       //Break if element is undefined or null
       if (element === undefined || element === null) continue;
-      result += `${key}=${encodeURIComponent(element)}`;
+      listKey.push(`${key}=${encodeURIComponent(element)}`);
     }
   }
-  if (result.length) return `?${result}`;
-  return result;
+  if (listKey.length) return `?${listKey.join('&')}`;
+  return '';
 };
 
 export { fillParam2Url, getJSONFromQueryUrl, getQueryStringFromJSON };

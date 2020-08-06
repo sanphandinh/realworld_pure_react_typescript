@@ -6,7 +6,7 @@ import {
 } from 'helpers/route.helper';
 
 interface IUpdateQueryStringFunc {
-  (obj: { [id: string]: any }): void;
+  (obj: { [id: string]: any }, isClearQueryString?: boolean): void;
 }
 
 const useQueryString: () => [
@@ -20,7 +20,11 @@ const useQueryString: () => [
   }, [search]);
 
   const updateQueryString = useCallback<IUpdateQueryStringFunc>(
-    (obj) => {
+    (obj, isClearQueryString = false) => {
+      if (isClearQueryString) {
+        navigate(origin);
+        return;
+      }
       const newQueryObj = { ...queryObj, ...obj };
       const newQueryString = getQueryStringFromJSON(newQueryObj);
       navigate(`${origin}${newQueryString}`);

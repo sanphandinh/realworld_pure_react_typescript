@@ -7,7 +7,7 @@ type Props = {
 
 const BaseTag: FC<Props> = ({ tag }) => {
   return (
-    <Link to="" className="tag-pill tag-default">
+    <Link to={`?tag=${tag}`} className="tag-pill tag-default">
       {tag}
     </Link>
   );
