@@ -1323,11 +1323,6 @@
     prop-types "^15.6.1"
     react-lifecycles-compat "^3.0.4"
 
-"@scarf/scarf@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.0.6.tgz#52011dfb19187b53b75b7b6eac20da0810ddd88f"
-  integrity sha512-y4+DuXrAd1W5UIY3zTcsosi/1GyYT8k5jGnZ/wG7UUHVrU+MHlH4Mp87KK2/lvMW4+H7HVcdB+aJhqywgXksjA==
-
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/@sheerun/mutationobserver-shim/-/mutationobserver-shim-0.3.3.tgz#5405ee8e444ed212db44e79351f0c70a582aae25"
@@ -8735,12 +8730,11 @@ react-query-devtools@^2.4.2:
   dependencies:
     match-sorter "^4.1.0"
 
-react-query@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.4.2.tgz#79aed02aa964d86745bb5fb351ed43142722964c"
-  integrity sha512-ngznvYMmDkVINP+62zVcfImyG5wnGtMPAhIHR3Ao/FltXVtUzX6smBSTDLNGaOLhjz0fBvRrnMGl5prRHanwnA==
+react-query@^2.5.7-tsnext.1:
+  version "2.5.7-tsnext.1"
+  resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.5.7-tsnext.1.tgz#03d3d4092302030f1c96702e13f02b786a0172a0"
+  integrity sha512-FdU3vRMM5Lm2cIhFxlfZlHY0glwKtyKLV85njdYauM5otAChfQaPwdR06VY47+jG/IAPowI8Wmo6JEgFpeWQ/g==
   dependencies:
-    "@scarf/scarf" "^1.0.6"
     ts-toolbelt "^6.9.4"
 
 react-scripts@3.4.1:
