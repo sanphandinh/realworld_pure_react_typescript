@@ -15,7 +15,7 @@ const TheCommenter: React.FC<Props> = ({ slug }) => {
   return (
     <>
       {isLogin ? (
-        <TheCommentPoster />
+        <TheCommentPoster slug={slug} />
       ) : (
         <p style={{ display: 'inherit' }}>
           <Link to={SigninRoute}>Sign in</Link> or{' '}
