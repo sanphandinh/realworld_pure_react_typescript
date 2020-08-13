@@ -32,7 +32,7 @@ async function requester<T>(
     headers['Content-Type'] = 'application/json';
   }
   const config = {
-    method: method || body ? MethodTypes.POST : MethodTypes.GET,
+    method: method || (body ? MethodTypes.POST : MethodTypes.GET),
     body: body ? JSON.stringify(body) : undefined,
     headers: {
       ...headers,

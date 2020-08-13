@@ -21,7 +21,7 @@ const TheCommentList: React.FC<Props> = ({ slug }) => {
   return (
     <>
       {comments.map((item) => (
-        <TheCommentListItem {...item} />
+        <TheCommentListItem key={item.id} slug={slug} {...item} />
       ))}
     </>
   );
