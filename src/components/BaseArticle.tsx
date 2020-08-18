@@ -6,8 +6,6 @@ import { fillParam2Url } from 'helpers/route.helper';
 
 const DefaultAvatar = 'http://i.imgur.com/Qr71crq.jpg';
 
-console.log("test");
-
 const BaseArticle: FC<IArticle> = ({
   slug,
   title,

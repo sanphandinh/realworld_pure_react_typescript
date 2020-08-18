@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 import { RouteComponentProps, useParams, Link } from '@reach/router';
 import useArticle from 'hooks/useArticle';
 import IArticle from 'models/Article';
@@ -6,12 +6,31 @@ import { fillParam2Url } from 'helpers/route.helper';
 import { ProfileRoute } from 'constants/routes.constants';
 import NotFound from 'pages/Notfound';
 import TheCommenter from 'components/TheCommenter';
+import useControlFavoriteArticle from 'hooks/useControlFavoriteArticle';
+import { queryCache } from 'react-query';
 
 const Article: FC<RouteComponentProps> = () => {
   const { slug } = useParams();
   const { data, status } = useArticle(slug);
   const response = data as { article: IArticle };
   const article = response?.article;
+  const [mutate, { reset }] = useControlFavoriteArticle(
+    slug,
+    article?.favorited
+  );
+  const favoriteHandler = useCallback(
+    (e) => {
+      mutate({
+        onSuccess: (data) => {
+          queryCache.setQueryData(`articles/${slug}`, data);
+        },
+        onSettled: () => {
+          reset();
+        },
+      });
+    },
+    [mutate, reset, slug]
+  );
   if (status === 'loading') return <div>Loading...</div>;
   if (status === 'error') return <NotFound />;
   return (
@@ -50,7 +69,9 @@ const Article: FC<RouteComponentProps> = () => {
               {/* <span className="counter">(10)</span> */}
             </button>
             &nbsp;&nbsp;
-            <button className="btn btn-sm btn-outline-primary">
+            <button
+              onClick={favoriteHandler}
+              className="btn btn-sm btn-outline-primary">
               <i className="ion-heart"></i>
               &nbsp;{' '}
               {article.favorited
