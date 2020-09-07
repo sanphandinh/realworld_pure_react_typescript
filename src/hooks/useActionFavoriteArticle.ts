@@ -1,12 +1,8 @@
+import IArticleResponse from 'models/ArticleResponse';
 import { MethodTypes } from 'utils/requester';
 import useRequester from 'providers/AuthProvider/hooks/useRequester';
 import { useMutation, MutateOptions, MutationOptions } from 'react-query';
 import { useCallback } from 'react';
-import IArticle from 'models/Article';
-
-type ResponseType = {
-  article: IArticle;
-};
 
 const useActionFavoriteArticle = ({
   slug,
@@ -14,15 +10,15 @@ const useActionFavoriteArticle = ({
 }: {
   slug: string;
   options?: MutationOptions<
-    ResponseType,
+    IArticleResponse,
     { isDelete?: boolean },
     Error,
     unknown
   >;
 }) => {
-  const requester = useRequester<ResponseType>();
+  const requester = useRequester<IArticleResponse>();
   const mutationFn = useCallback<
-    ({ isDelete }: { isDelete?: boolean }) => Promise<ResponseType>
+    ({ isDelete }: { isDelete?: boolean }) => Promise<IArticleResponse>
   >(
     ({ isDelete = false }) => {
       return requester(`articles/${slug}/favorite`, {
@@ -32,7 +28,7 @@ const useActionFavoriteArticle = ({
     [requester, slug]
   );
   const [mutate, result] = useMutation<
-    ResponseType,
+    IArticleResponse,
     { isDelete?: boolean },
     Error,
     unknown
@@ -41,7 +37,12 @@ const useActionFavoriteArticle = ({
   const handleDeleteFavorite = useCallback<
     (
       options?:
-        | MutateOptions<ResponseType, { isDelete?: boolean }, Error, unknown>
+        | MutateOptions<
+            IArticleResponse,
+            { isDelete?: boolean },
+            Error,
+            unknown
+          >
         | undefined
     ) => void
   >(
@@ -54,7 +55,12 @@ const useActionFavoriteArticle = ({
   const handleFavorite = useCallback<
     (
       options?:
-        | MutateOptions<ResponseType, { isDelete?: boolean }, Error, unknown>
+        | MutateOptions<
+            IArticleResponse,
+            { isDelete?: boolean },
+            Error,
+            unknown
+          >
         | undefined
     ) => void
   >(

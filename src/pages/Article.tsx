@@ -5,6 +5,7 @@ import NotFound from 'pages/Notfound';
 import TheCommenter from 'components/TheCommenter';
 import BaseArticleMeta from 'components/BaseArticleMeta';
 import useActionFavoriteArticle from 'hooks/useActionFavoriteArticle';
+import useActionFollowAuthor from 'hooks/useActionFollowAuthor';
 import { queryCache } from 'react-query';
 import IArticleResponse from 'models/ArticleResponse';
 
@@ -13,6 +14,7 @@ const Article: FC<RouteComponentProps> = () => {
   const { data, status } = useArticle(slug);
   const article = data?.article;
   const favorited = !!article?.favorited;
+  const following = !!article?.author?.following;
   const { handleDeleteFavorite, handleFavorite } = useActionFavoriteArticle({
     slug,
     options: {
@@ -42,6 +44,35 @@ const Article: FC<RouteComponentProps> = () => {
       },
     },
   });
+  const { handleFollow, handleUnfollow } = useActionFollowAuthor({
+    username: article?.author.username || '',
+    options: {
+      onMutate: (variables) => {
+        const previousValue = data;
+        queryCache.setQueryData<IArticleResponse>(
+          `articles/${slug}`,
+          (oldData) => {
+            if (!oldData) return undefined;
+            return {
+              article: {
+                ...oldData.article,
+                author: {
+                  ...oldData.article.author,
+                  following: variables?.isUnfollow ? true : false,
+                },
+              },
+            };
+          }
+        );
+        return previousValue;
+      },
+      onError: (err, variables, previousValue) =>
+        queryCache.setQueryData(`articles/${slug}`, previousValue),
+      onSettled: () => {
+        queryCache.invalidateQueries(`articles/${slug}`);
+      },
+    },
+  });
   const favoriteAction = useCallback(() => {
     if (favorited) {
       handleDeleteFavorite();
@@ -49,6 +80,13 @@ const Article: FC<RouteComponentProps> = () => {
       handleFavorite();
     }
   }, [favorited, handleDeleteFavorite, handleFavorite]);
+  const followAction = useCallback(() => {
+    if (following) {
+      handleUnfollow();
+    } else {
+      handleFollow();
+    }
+  }, [following, handleFollow, handleUnfollow]);
   const baseArticleMeta = (
     <BaseArticleMeta
       username={article?.author.username}
@@ -58,6 +96,7 @@ const Article: FC<RouteComponentProps> = () => {
       image={article?.author.image}
       updatedAt={article?.updatedAt}
       favoriteAction={favoriteAction}
+      followingAction={followAction}
     />
   );
   if (status === 'loading') return <div>Loading...</div>;
