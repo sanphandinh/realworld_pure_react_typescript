@@ -4,23 +4,23 @@ import { fillParam2Url } from 'helpers/route.helper';
 import { Link } from '@reach/router';
 
 type Props = {
-  username: string;
+  username?: string;
   image?: string;
-  updatedAt: string;
+  updatedAt?: string;
   following?: boolean;
-  favorited: boolean;
-  favoritesCount: number;
+  favorited?: boolean;
+  favoritesCount?: number;
   followingAction?: () => void;
   favoriteAction?: () => void;
 };
 
 const BaseArticleMeta: React.FC<Props> = ({
-  username,
+  username = '',
   image = '',
-  updatedAt,
+  updatedAt = '',
   following = false,
   favoriteAction = () => null,
-  favorited,
+  favorited = false,
   favoritesCount,
   followingAction = () => null,
 }) => {
