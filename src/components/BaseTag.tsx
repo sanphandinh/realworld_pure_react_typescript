@@ -3,11 +3,14 @@ import { Link } from '@reach/router';
 
 type Props = {
   tag: string;
+  notRedirect?: boolean;
 };
 
-const BaseTag: FC<Props> = ({ tag }) => {
+const BaseTag: FC<Props> = ({ tag, notRedirect = false }) => {
   return (
-    <Link to={`?tag=${tag}`} className="tag-pill tag-default">
+    <Link
+      to={notRedirect ? '' : `?tag=${tag}`}
+      className="tag-pill tag-default">
       {tag}
     </Link>
   );

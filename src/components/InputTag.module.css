@@ -1,0 +1,10 @@
+.tagsInput {
+  display: flex;
+  flex-direction: row;
+}
+
+.input {
+  border: none;
+  outline: none;
+  flex: 1;
+}

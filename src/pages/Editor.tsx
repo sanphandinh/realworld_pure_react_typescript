@@ -1,8 +1,19 @@
 import React, { FC } from 'react';
-import { RouteComponentProps } from '@reach/router';
+import { RouteComponentProps, Router } from '@reach/router';
+
+const EditorCreateArticleAsync = React.lazy(
+  () => import('./EditorCreateArticle')
+);
+
+const EditorEditArticleAsync = React.lazy(() => import('./EditorEditArticle'));
 
 const Editor: FC<RouteComponentProps> = () => {
-  return <div>Editor</div>;
+  return (
+    <Router>
+      <EditorEditArticleAsync path="/:slug" />
+      <EditorCreateArticleAsync path="/" />
+    </Router>
+  );
 };
 
 export default Editor;
