@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import useUpdateUser from 'hooks/useUpdateUser';
 import { queryCache } from 'react-query';
 import IUserResponse from 'models/UserResponse';
+import { useAuthFunction } from 'providers/AuthProvider/hooks';
 const validateSchema = Yup.object({
   image: Yup.string().trim().url('Please enter your image url'),
   username: Yup.string()
@@ -23,6 +24,7 @@ const validateSchema = Yup.object({
 
 const Settings: FC<RouteComponentProps> = () => {
   const { data, isLoading } = useGetCurrentUser();
+  const { logout } = useAuthFunction();
   const { updateCurrentUser } = useUpdateUser({
     onMutate: (variables) => {
       const previousValue = data;
@@ -37,7 +39,7 @@ const Settings: FC<RouteComponentProps> = () => {
       });
       return previousValue;
     },
-    onError: (err, variables, previousValue) =>
+    onError: (_err, _variables, previousValue) =>
       queryCache.setQueryData('user', previousValue),
     onSettled: () => {
       queryCache.invalidateQueries('user');
@@ -172,6 +174,10 @@ const Settings: FC<RouteComponentProps> = () => {
                 );
               }}
             </Formik>
+            <hr />
+            <button className="btn btn-outline-danger" onClick={logout}>
+              Or click here to logout.
+            </button>
           </div>
         </div>
       </div>
